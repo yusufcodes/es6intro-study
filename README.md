@@ -98,3 +98,21 @@ ages6 = years.map((el, index) => {
     return `Age element ${index + 1}: ${age}`;
 });
 ```
+
+## Arrow Functions: Lexical 'this' Keyword
+
+Arrow functions **do not** have their own 'this' variable. Instead, they use the 'this' variable of the function they are written in.
+
+It is for this reason that it is described to have a **lexical 'this' keyword.**
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.myFriends6 = friends => {
+    let arr = frields.map(el => `${this.name} is friends with ${el}`);
+};
+
+```
+
