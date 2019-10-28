@@ -283,8 +283,9 @@ Person5.prototype.calculateAge = function()
 }
 
 // ES6
-// All classes must have a constructor method
+// Defining the class
 class Person6 {
+    // All classes must have a constructor method
     constructor (name, yearOfBirth, job)
     {
         this.name = name;
@@ -296,5 +297,101 @@ class Person6 {
     {
         // Code
     }
+
+    // Static method - no instance of class needed to run these
+    static greeting()
+    {
+        console.log('Hi!');
+    }
 }
+
+// Creating an instance of the class
+const john6 = new Person6('John', 1990, 'Teacher');
+
+// Calling a static method
+Person6.greeting();
+```
+
+## Classes with Subclasses
+
+This section details how to go about inheriting from one class, the **super class** to another class, being the **sub class.** This is possible in both ES5 and ES6 with different implementations, so this is detailed below.
+
+```javascript
+// Creation of superclass, with a method added to its prototype
+var Person5 = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person5.prototype.calculateAge = function() {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+}
+
+// Creation of subclass
+var Athlete5 = function(name, yearOfBirth, job, olymicGames, medals) {
+    // Setting the 'this' variable of Person5 to the Athlete5 object, allowing for us to inherit from this objects properties.
+    Person5.call(this, name, yearOfBirth, job);
+
+    // Adding our own properties, specific to an Athlete.
+    this.olymicGames = olymicGames;
+    this.medals = medals;
+}
+
+// Creating a new instance of Person5 and setting the prototype to the Athlete's prototype, giving us access to the Person5 methods.
+Athlete5.prototype = Object.create(Person5.prototype);
+
+// Adding our own method to the Athlete5 prototype. This will be inherited by any new Athlete5 instance.
+Athlete5.prototype.wonMedal = function() {
+    this.medals++;
+    console.log(this.medals);
+}
+
+// Creating a new instance of an athlete and calling methods from the superclass and subclass
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+
+// ES6
+
+// Defining the superclass
+class Person6
+{
+    // All classes must have a constructor method
+    constructor (name, yearOfBirth, job)
+    {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() 
+    {
+        console.log('Age code here!');
+    }
+}
+
+// Defining the subclass
+class Athlete6 extends Person6
+{
+    constructor(name, yearOfBirth, job, olympicGames, medals)
+    {
+        // Super will make a call to the superclass constructor method
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+    }
+
+    // Adding a method to the Athlete6 prototype property
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
+
 ```
