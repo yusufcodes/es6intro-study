@@ -113,6 +113,188 @@ function Person(name) {
 Person.prototype.myFriends6 = friends => {
     let arr = frields.map(el => `${this.name} is friends with ${el}`);
 };
-
 ```
 
+## Destructuring
+
+Destructuring is the process of breaking down a data structure into constituent variables. Examples below show how this is possible for **Arrays** and **Objects**.
+
+### Arrays
+
+```javascript
+let foo = ['one', 'two', 'three'];
+
+let [red, yellow, green] = foo;
+console.log(red); // "one"
+console.log(yellow); // "two"
+console.log(green); // "three"
+```
+
+### Objects
+
+```javascript
+let o = {p: 42, q: true};
+let {p, q} = o;
+
+console.log(p); // 42
+console.log(q); // true 
+```
+
+## Arrays in ES6
+
+### Methods
+
+- Array.from(x): Converts the input, x, into an Array.
+- arrayName.findIndex(): Retrieve the index of the specificed value. A method can be passed into this.
+- arrayName.find(): Retrieve the values which satisfies the condition passed into the method.
+
+### Loops
+
+The name of the new loop is called **for of**. It combines the features of a traditional for loop and the forEach loop, allowing for a more effective use of the for loop on an array. For example, you can now use the **continue** or **break** statement within this loop.
+
+```javascript
+// Change the value of the first and third elements only
+arr = [1, 2, 3];
+for (const cur of arr)
+{
+    if (cur.value === 2)
+    {
+        continue;
+    }
+
+    cur.value = 50;
+}
+```
+
+## The Spread Operator
+
+The operator looks like this: **...arrayName**, where each element is *expanded*. This means that each element is broken down into constituent parts, making it easy to list all the array elements. This also works on other structures, such as nodeLists.
+
+```javascript
+function addFourAges (a,b,c,d)
+{
+    return a+b+c+d;
+}
+
+var ages = [19, 32, 12, 18];
+
+// The individual values of the ages array are passed into the method
+const agesAdded = addFourAges(...ages);
+```
+
+## Function Parameters
+
+### Rest Parameters
+
+Allows for some arbituary arguments to be passed into a function, and from this, it will be transformed into an array, to be used within the function. It allows for standard parameters to be distinguished between arbituary ones.
+
+```javascript
+// ...years -> The years variable is available for us in this function, which will be 
+// an array of all the arguments passed in.
+function isFullAge(limit, ...years)
+{
+    years.forEach(cur => console.log((2016- cur) >= limit));
+}
+```
+
+### Default Parameters
+
+Allows for us to have pre-determined values for a parameter.
+
+```javascript
+// lastName has a default parameter of 'Smith'
+function Person(firstName, yearOfBirth, lastName = 'Smith')
+{
+    // Code
+};
+```
+
+## Maps - New Data Structure
+
+A key:value data structure, allowing for any values to be used as keys. They can be better alternatives to using objects for the following reasons:
+
+- Any value can be used as keys
+- Can be iterated over using 'forEach' and 'for on'
+- Size of the map is easily retrieved
+- Data can easily be added/removed
+
+```javascript
+// Create a new Map
+const question = new Map();
+
+// Setting up key:value pairs with set()
+question.set('question', 'What is the official name of the latest major version of JavaScript?')';
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct!');
+question.set(false, 'Incorrect');
+
+// Retrieving values from the Map
+question.get('question');
+
+// Retrieve the size of the map
+let size = question.size;
+
+// Remove a value from the map
+question.delete(4);
+
+// Check if a key exists in the map
+if (question.has(4))
+{
+    // Do something if true
+}
+
+// Delete ALL elements of the map
+question.clear();
+
+// forEach method on a map
+question.forEach( (key, value) =>
+console.log(`The ${key} with value ${value}`)
+);
+
+// for of method on a map
+// entries() returns the key,value pairs, and then we use
+// destructuring to store these values in key and value
+for (let [key, value] of question.entries())
+{
+    // Code
+};
+```
+
+## Classes
+
+In ES5, Function Constructors are used for the definition of classes. We would then add methods to the prototype of the constructor to allow for them to be inherited.
+
+```javascript
+// ES5
+var Person5 = function(name, yearOfBirth, job)
+{
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person5.prototype.calculateAge = function()
+{
+    // Code
+}
+
+// ES6
+// All classes must have a constructor method
+class Person6 {
+    constructor (name, yearOfBirth, job)
+    {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() 
+    {
+        // Code
+    }
+}
+```
